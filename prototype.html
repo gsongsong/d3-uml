@@ -6,6 +6,7 @@
     <script src="https://d3js.org/d3.v6.js"></script>
     <script>
       const [width, height] = [300, 300];
+      const diag = Math.sqrt(width * width + height * height);
       const data = {
         nodes: [{ id: "id 1" }, { id: "id 2" }, { id: "id 3" }],
         links: [
@@ -23,7 +24,7 @@
           "link",
           d3.forceLink(links).id((d) => d.id)
         )
-        .force("charge", d3.forceManyBody())
+        .force("charge", d3.forceManyBody().strength(-diag))
         .force("center", d3.forceCenter(width / 2, height / 2));
 
       const scale = d3.scaleOrdinal(d3.schemeCategory10);
