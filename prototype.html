@@ -110,7 +110,9 @@
           return `translate(${x + offsetx},${y + offsety})`;
         });
 
-        node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+        node.attr("transform", (d) => {
+          return `translate(${d.x},${d.y})`;
+        });
       });
 
       // invalidation.then(() => simulation.stop());
