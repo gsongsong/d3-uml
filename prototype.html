@@ -90,7 +90,13 @@
         .attr("fill", color)
         .call(drag(simulation));
 
-      node.append("title").text((d) => d.id);
+      const nodeText = svg
+        .append("g")
+        .selectAll("text")
+        .data(nodes)
+        .join("text")
+        .text((d) => d.id)
+        .attr("text-anchor", "middle");
 
       simulation.on("tick", () => {
         link
@@ -112,6 +118,15 @@
 
         node.attr("transform", (d) => {
           return `translate(${d.x},${d.y})`;
+        });
+
+        nodeText.attr("transform", (d) => {
+          const dx = d.x - width / 2;
+          const dy = d.y - height / 2;
+          const r = Math.sqrt(dx * dx + dy * dy);
+          const offsetx = 25 * dx / r;
+          const offsety = 25 * dy / r;
+          return `translate(${d.x + offsetx},${d.y + offsety})`;
         });
       });
 
