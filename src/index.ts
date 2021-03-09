@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { BaseType, Selection } from 'd3';
 
 const [width, height] = [300, 300];
 const diag = Math.sqrt(width * width + height * height);
@@ -39,27 +40,27 @@ const simulation = d3
   .forceSimulation(nodes)
   .force(
     "link",
-    d3.forceLink(links).id((d) => d.id)
+    d3.forceLink(links).id((d: any /* TODO */) => d.id)
   )
   .force("charge", d3.forceManyBody().strength(-diag))
   .force("center", d3.forceCenter(width / 2, height / 2));
 
 const scale = d3.scaleOrdinal(d3.schemeCategory10);
-const color = (d) => scale(d.group);
+const color = (d: any /* TODO */) => scale(d.group);
 
-const drag = (simulation) => {
-  function dragstarted(event) {
+const drag = (simulation: d3.Simulation<any, undefined>) => {
+  function dragstarted(event: any /* TODO */) {
     if (!event.active) simulation.alphaTarget(0.3).restart();
     event.subject.fx = event.subject.x;
     event.subject.fy = event.subject.y;
   }
 
-  function dragged(event) {
+  function dragged(event: any /* TODO */) {
     event.subject.fx = event.x;
     event.subject.fy = event.y;
   }
 
-  function dragended(event) {
+  function dragended(event: any /* TODO */) {
     if (!event.active) simulation.alphaTarget(0);
     event.subject.fx = null;
     event.subject.fy = null;
@@ -69,7 +70,7 @@ const drag = (simulation) => {
     .drag()
     .on("start", dragstarted)
     .on("drag", dragged)
-    .on("end", dragended);
+    .on("end", dragended) as unknown as (selection: Selection<BaseType | SVGCircleElement, any, SVGGElement, unknown>, ...args: any[]) => void;
 };
 
 const svg = d3
@@ -77,7 +78,7 @@ const svg = d3
   .append("svg")
   .attr("width", width)
   .attr("height", height)
-  .attr("viewBox", [0, 0, width, height]);
+  .attr("viewBox", `0 0 ${width} ${height}`);
 
 const link = svg
   .append("g")
