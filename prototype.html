@@ -10,9 +10,9 @@
       const data = {
         nodes: [{ id: "id 1" }, { id: "id 2" }, { id: "id 3" }],
         links: [
-          { source: "id 1", target: "id 2" },
-          { source: "id 2", target: "id 3" },
-          { source: "id 3", target: "id 1" },
+          { source: "id 1", target: "id 2", name: "id 1 to id 2" },
+          { source: "id 2", target: "id 3", name: "id 2 to id 3" },
+          { source: "id 3", target: "id 1", name: "id 3 to id 1" },
         ],
       };
       const links = data.links.map((d) => Object.create(d));
@@ -71,6 +71,14 @@
         .join("line")
         .attr("stroke-width", (d) => Math.sqrt(d.value));
 
+      const linkName = svg
+        .append("g")
+        .selectAll("text")
+        .data(links)
+        .join("text")
+        .text((d) => d.name)
+        .attr("text-anchor", "middle");
+
       const node = svg
         .append("g")
         .attr("stroke", "#fff")
@@ -90,6 +98,17 @@
           .attr("y1", (d) => d.source.y)
           .attr("x2", (d) => d.target.x)
           .attr("y2", (d) => d.target.y);
+
+        linkName.attr("transform", (d) => {
+          const x = (d.source.x + d.target.x) / 2;
+          const y = (d.source.y + d.target.y) / 2;
+          const dx = x - width / 2;
+          const dy = y - height / 2;
+          const r = Math.sqrt(dx * dx + dy * dy);
+          const offsetx = 5 * dx / r;
+          const offsety = 5 * dy / r;
+          return `translate(${x + offsetx},${y + offsety})`;
+        });
 
         node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
       });
