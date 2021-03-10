@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import { BaseType, Selection } from "d3-selection";
 import { D3UmlRelDirected } from "./constants";
+import { addMarkers } from "./d3UmlMarker";
 
 type D3UmlAttribute = {
   name: string;
@@ -97,22 +98,6 @@ export class D3Uml {
     });
   }
 
-  addMarkers(svg: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>) {
-    const defs = svg.append("defs");
-    defs.append("marker")
-      .attr("id", D3UmlRelDirected)
-      .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 15)
-      .attr("refY", -0.5)
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
-      .attr("orient", "auto")
-      .append("polyline")
-      .attr("points", "0,-5 10,0 0,5")
-      .attr("fill", "none")
-      .attr("stroke", "black");
-  }
-
   render(selector: string, width: number, height: number) {
     const diag = Math.sqrt(width * width + height * height);
     const nodes = this.classList.map((d) => Object.create(d));
@@ -168,7 +153,7 @@ export class D3Uml {
       .attr("height", height)
       .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`);
 
-    this.addMarkers(svg);
+    addMarkers(svg);
 
     const link = svg
       .append("g")
