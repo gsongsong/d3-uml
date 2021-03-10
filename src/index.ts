@@ -19,4 +19,4 @@ d3Uml.addRelationship("Package", "Feature", {
   name: "Includes",
 });
 
-d3Uml.render(600, 600);
+d3Uml.render("body", 600, 600);

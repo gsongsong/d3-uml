@@ -92,7 +92,7 @@ export class D3Uml {
     });
   }
 
-  render(width: number, height: number) {
+  render(selector: string, width: number, height: number) {
     const diag = Math.sqrt(width * width + height * height);
     const nodes = this.classList.map((d) => Object.create(d));
     const links = this.relationshipList.map((d) => Object.create(d));
@@ -141,7 +141,7 @@ export class D3Uml {
     };
 
     const svg = d3
-      .select("body")
+      .select(selector)
       .append("svg")
       .attr("width", width)
       .attr("height", height)
