@@ -2,48 +2,11 @@ import * as d3 from "d3";
 import { BaseType, Selection } from "d3-selection";
 import { D3UmlDashArrayList } from "./constants";
 import { addMarkers } from "./d3UmlMarker";
-
-type D3UmlAttribute = {
-  name: string;
-  type: string;
-};
-
-type D3UmlParameter = {
-  name: string;
-  type: string;
-};
-
-type D3UmlOperation = {
-  name: string;
-  parameterList: D3UmlParameter[];
-  returnType: string;
-};
-
-type D3UmlClass = {
-  name: string;
-  attributeList?: D3UmlAttribute[];
-  operationList?: D3UmlOperation[];
-};
-
-type D3UmlEndProperty = {
-  multiplicity?: string;
-};
-
-type D3UmlRelationshipProperty = {
-  type: string;
-  name?: string;
-  sourceEndProperty?: D3UmlEndProperty;
-  targetEndProperty?: D3UmlEndProperty;
-};
-
-type D3UmlRelationship = {
-  source: string;
-  target: string;
-  type: string;
-  name?: string;
-  sourceEndProperty?: D3UmlEndProperty;
-  targetEndProperty?: D3UmlEndProperty;
-};
+import {
+  D3UmlClass,
+  D3UmlRelationship,
+  D3UmlRelationshipProperty,
+} from "./types";
 
 export class D3Uml {
   private classList: D3UmlClass[];
@@ -168,7 +131,7 @@ export class D3Uml {
         const dashArrayFound = D3UmlDashArrayList.find((d) => d.type === type);
         return dashArrayFound ? dashArrayFound.dashArray : "none";
       })
-      .attr("marker-end", d => `url(#${d.type})`);
+      .attr("marker-end", (d) => `url(#${d.type})`);
 
     const linkName = svg
       .append("g")
