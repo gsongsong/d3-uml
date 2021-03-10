@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import { BaseType, Selection } from "d3-selection";
-import { D3UmlRelDirected } from "./constants";
+import { D3UmlDashArrayList } from "./constants";
 import { addMarkers } from "./d3UmlMarker";
 
 type D3UmlAttribute = {
@@ -163,6 +163,11 @@ export class D3Uml {
       .data(links)
       .join("line")
       .attr("stroke-width", (d) => Math.sqrt(d.value))
+      .attr("stroke-dasharray", (d) => {
+        const type = d.type as string;
+        const dashArrayFound = D3UmlDashArrayList.find((d) => d.type === type);
+        return dashArrayFound ? dashArrayFound.dashArray : "none";
+      })
       .attr("marker-end", d => `url(#${d.type})`);
 
     const linkName = svg
