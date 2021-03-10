@@ -1,3 +1,4 @@
+import { D3UmlRelDirected } from "./constants";
 import { D3Uml } from "./d3Uml";
 
 const d3Uml = new D3Uml();
@@ -7,15 +8,15 @@ d3Uml.addClass({ name: "Feature" });
 d3Uml.addClass({ name: "Package" });
 
 d3Uml.addRelationship("User", "Feature", {
-  type: "Directed association",
+  type: D3UmlRelDirected,
   name: "Owns",
 });
 d3Uml.addRelationship("User", "Package", {
-  type: "Directed association",
+  type: D3UmlRelDirected,
   name: "Owns",
 });
 d3Uml.addRelationship("Package", "Feature", {
-  type: "Directed association",
+  type: D3UmlRelDirected,
   name: "Includes",
 });
 
