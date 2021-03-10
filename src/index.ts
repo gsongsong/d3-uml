@@ -43,7 +43,8 @@ const simulation = d3
     d3.forceLink(links).id((d: any /* TODO */) => d.id)
   )
   .force("charge", d3.forceManyBody().strength(-diag))
-  .force("center", d3.forceCenter(width / 2, height / 2));
+  .force("x", d3.forceX())
+  .force("y", d3.forceY());
 
 const scale = d3.scaleOrdinal(d3.schemeCategory10);
 const color = (d: any /* TODO */) => scale(d.group);
@@ -78,7 +79,7 @@ const svg = d3
   .append("svg")
   .attr("width", width)
   .attr("height", height)
-  .attr("viewBox", `0 0 ${width} ${height}`);
+  .attr("viewBox", `${-width/2} ${-height/2} ${width} ${height}`);
 
 const link = svg
   .append("g")
