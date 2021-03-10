@@ -192,8 +192,8 @@ export class D3Uml {
       linkName.attr("transform", (d) => {
         const x = (d.source.x + d.target.x) / 2;
         const y = (d.source.y + d.target.y) / 2;
-        const dx = x - width / 2;
-        const dy = y - height / 2;
+        const dx = x;
+        const dy = y;
         const r = Math.sqrt(dx * dx + dy * dy);
         const offsetx = (5 * dx) / r;
         const offsety = (5 * dy) / r;
@@ -205,8 +205,8 @@ export class D3Uml {
       });
 
       nodeText.attr("transform", (d) => {
-        const dx = d.x - width / 2;
-        const dy = d.y - height / 2;
+        const dx = d.x;
+        const dy = d.y;
         const r = Math.sqrt(dx * dx + dy * dy);
         const offsetx = (25 * dx) / r;
         const offsety = (25 * dy) / r;
