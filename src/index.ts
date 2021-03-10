@@ -10,14 +10,32 @@ d3Uml.addClass({ name: "Package" });
 d3Uml.addRelationship("User", "Feature", {
   type: D3UmlRelDirected,
   name: "Owns",
+  sourceEndProperty: {
+    multiplicity: "1",
+  },
+  targetEndProperty: {
+    multiplicity: "0..*",
+  },
 });
 d3Uml.addRelationship("User", "Package", {
   type: D3UmlRelDirected,
   name: "Owns",
+  sourceEndProperty: {
+    multiplicity: "1",
+  },
+  targetEndProperty: {
+    multiplicity: "0..*",
+  },
 });
 d3Uml.addRelationship("Package", "Feature", {
   type: D3UmlRelDirected,
   name: "Includes",
+  sourceEndProperty: {
+    multiplicity: "0..*",
+  },
+  targetEndProperty: {
+    multiplicity: "0..*",
+  },
 });
 
 d3Uml.render("body", 600, 600);

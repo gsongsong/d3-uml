@@ -141,6 +141,40 @@ export class D3Uml {
       .text((d) => d.name)
       .attr("text-anchor", "middle");
 
+    const sourceEndProperty = svg
+      .append("g")
+      .selectAll("text")
+      .data(links)
+      .join("text")
+      .text((d) => {
+        const { sourceEndProperty } = d;
+        if (!sourceEndProperty) {
+          return "";
+        }
+        const { multiplicity } = sourceEndProperty;
+        if (!multiplicity) {
+          return "";
+        }
+        return multiplicity;
+      });
+
+      const targetEndProperty = svg
+        .append("g")
+        .selectAll("text")
+        .data(links)
+        .join("text")
+        .text((d) => {
+          const { targetEndProperty } = d;
+          if (!targetEndProperty) {
+            return "";
+          }
+          const { multiplicity } = targetEndProperty;
+          if (!multiplicity) {
+            return "";
+          }
+          return multiplicity;
+        });
+
     const node = svg
       .append("g")
       .attr("stroke", "#fff")
@@ -160,6 +194,9 @@ export class D3Uml {
       .attr("text-anchor", "middle");
 
     simulation.on("tick", () => {
+      const portionLarge = 8;
+      const portionSmall = 2;
+
       link
         .attr("x1", (d) => d.source.x)
         .attr("y1", (d) => d.source.y)
@@ -175,6 +212,18 @@ export class D3Uml {
         const offsetx = (5 * dx) / r;
         const offsety = (5 * dy) / r;
         return `translate(${x + offsetx},${y + offsety})`;
+      });
+
+      sourceEndProperty.attr("transform", (d) => {
+        const x = (portionLarge * d.source.x + portionSmall * d.target.x) / 10;
+        const y = (portionLarge * d.source.y + portionSmall * d.target.y) / 10;
+        return `translate(${x},${y})`;
+      });
+
+      targetEndProperty.attr("transform", (d) => {
+        const x = (portionSmall * d.source.x + portionLarge * d.target.x) / 10;
+        const y = (portionSmall * d.source.y + 7 * d.target.y) / 10;
+        return `translate(${x},${y})`;
       });
 
       node.attr("transform", (d) => {
