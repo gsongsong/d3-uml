@@ -53,6 +53,10 @@ export class D3Uml {
   }
 
   addClass(d3UmlClass: D3UmlClass) {
+    const classFound = this.classList.find((d) => d.name === d3UmlClass.name);
+    if (classFound) {
+      return;
+    }
     this.classList.push(d3UmlClass);
   }
 
