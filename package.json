@@ -1,7 +1,8 @@
 {
   "license": "GPL-3.0",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "start": "webpack -w"
   },
   "devDependencies": {
     "@types/d3": "^6.3.0",
